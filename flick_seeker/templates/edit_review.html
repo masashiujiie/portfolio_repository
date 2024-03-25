@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>レビューの編集</h2>
+
+  <div class="content-wrapper">
+    <h3>{{ movie.title }}</h3>
+    <form method="post" class="edit-review-form">
+      {% csrf_token %}
+      <div>
+        <label for="id_title">レビュータイトル:</label>
+        {{ form.title }}
+      </div>
+      <div>
+        <label for="id_rating">評価:</label>
+        {{ form.rating }}
+      </div>
+      <div>
+        {{ form.spoiler }} ネタバレあり
+      </div>
+      <div>
+        <label for="id_comment">本文:</label>
+        {{ form.comment }}
+      </div>
+      <label for="hashtag-selection" style="font-weight: bold; margin-bottom: 10px; display: block;">
+        映画のレビューに合わせて、関連するハッシュタグを選んでください。これにより、検索がしやすくなります。
+      </label>
+
+      <!-- タブ切り替えボタン -->
+      <div class="button-group">
+        <button type="button" onclick="showCategory('genre')">ジャンル</button>
+        <button type="button" onclick="showCategory('situation')">シチュエーション</button>
+      </div>
+
+      <!-- ジャンルハッシュタグ -->
+      <div id="genre-tags" class="hashtag-category" style="display:none;">
+        {% for hashtag in genre_hashtags %}
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="hashtags" value="{{ hashtag.id }}"
+                {% if hashtag.id in existing_hashtags %} checked {% endif %}>
+              {{ hashtag.label }}
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- シチュエーションハッシュタグ -->
+      <div id="situation-tags" class="hashtag-category" style="display:none;">
+        {% for hashtag in situation_hashtags %}
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="hashtags" value="{{ hashtag.id }}"
+                {% if hashtag.id in existing_hashtags %} checked {% endif %}>
+              {{ hashtag.label }}
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+    
+      <!-- 保存と削除のボタン -->
+      <div class="form-actions">
+        <button type="submit" name="save">更新</button>
+        <button type="submit" name="delete" class="btn btn-danger">削除</button>
+      </div>
+    </form>
+  
+    <!-- 戻るボタンを追加 -->
+    <a href="{% url 'flick_seeker:my_reviews' %}" class="button back-button">戻る</a>
+  </div>
+{% endblock %}
+
+<!-- タブ切り替え用のJavaScript -->
+{% block extra_js %}
+<script>
+  // タブ切り替え関数
+  function showCategory(category) {
+    console.log(category); // 確認のためのログ
+    var genreTagsDiv = document.getElementById('genre-tags');
+    var situationTagsDiv = document.getElementById('situation-tags');
+    console.log(genreTagsDiv, situationTagsDiv); // これらの要素が正しく取得できているかを確認
+
+    // 'genre' カテゴリが選択された場合
+    if (category === 'genre') {
+      genreTagsDiv.style.display = 'block'; // ジャンルタグを表示
+      situationTagsDiv.style.display = 'none'; // シチュエーションタグを隠す
+    }
+    // 'situation' カテゴリが選択された場合
+    else if (category === 'situation') {
+      genreTagsDiv.style.display = 'none'; // ジャンルタグを隠す
+      situationTagsDiv.style.display = 'block'; // シチュエーションタグを表示
+    }
+  }
+</script>
+{% endblock %}

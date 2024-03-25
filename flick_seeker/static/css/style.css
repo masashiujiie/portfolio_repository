@@ -1,0 +1,1063 @@
+/* ベースのスタイル */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* モダンなフォント */
+    color: #333; /* ベーシックな文字色 */
+    background-color: #f4f4f4; /* 明るい背景色 */
+    margin: 0;
+    padding: 0; 
+    display: flex; /* Flexboxを使用してヘッダーとフッターを配置 */
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    min-height: 100vh; /* ビューポートの高さと同じにする */
+    justify-content: space-between; /* コンテンツとフッターを画面の両端に配置 */
+}
+
+header {
+    display: flex;
+    justify-content: space-between; /* 左右に要素を分散 */
+    align-items: center; /* 中央揃え */
+    padding: 10px 20px; /* 上下左右の余白 */
+}
+
+/* フッターのスタイル */
+footer {
+    text-align: center; /* フッターテキストを中央に */
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    position: relative; /* 固定位置から相対位置に変更 */
+    bottom: auto;
+    width: 100%;
+}
+
+h1 {
+    color: #5d5d5d; /* タイトルの色 */
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #5d5d5d; /* タイトルの色 */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
+/* ボタンの共通スタイル */
+.button {
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: #fff; /* テキストの色 */
+    padding: 10px 15px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* トランジションを滑らかに */
+}
+
+/* 特定の戻るボタンのスタイル */
+.back-button {
+    background-color: #007bff; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 200px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 10px auto; /* 適切なマージン */
+}
+
+/* ホバーエフェクト */
+.button:hover,
+.button:focus {
+    transform: translateY(-2px); /* ボタンを軽く持ち上げる */
+    background-color: #0056b3; /* 背景色を濃い色に */
+    color: white; /* テキストの色を白に */
+    outline: none; /* フォーカス時のアウトラインをなしに */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色を暗く */
+    color: white; /* ホバー時の文字色を白く */
+}
+
+/* ロゴのスタイル */
+.logo a {
+    color: #007bff; /* ロゴの色 */
+    text-decoration: none; /* 下線を消す */
+    font-size: 1.5em; /* ロゴのサイズを大きく */
+    font-weight: bold; /* フォントを太く */
+    font-size: 2em; /* ロゴのサイズを大きくする */
+    margin-top: 10px; /* 上に余白を追加 */
+    display: inline-block; /* マージンを適用するためのスタイル */
+}
+
+.top-signup-button {
+    background-color: #007bff; /* 明るい青色 */
+    color: white;
+    margin-right: 10px; /* ボタン間の余白 */
+    margin-top: 10px; /* 上の余白 */
+    margin-bottom: 5px !important; /* 下の余白 */    
+}
+
+.signup-button {
+    background-color: #15acb1; /* 明るい青色 */
+    color: white;
+    margin-right: 10px; /* ボタン間の余白 */
+    margin-top: 10px; /* 上の余白 */
+    margin-bottom: 5px !important; /* 下の余白 */    
+}
+
+.login-button {
+    background-color: #28A745; /* 明るい緑色 */
+    color: white;
+    margin-right: 10px; /* ボタン間の余白 */
+    margin-top: 10px; /* 上の余白 */
+    margin-bottom: 5px !important; /* 下の余白 */ 
+}
+
+/* リンクのスタイル */
+a {
+    color: #007BFF; /* リンクの色 */
+    text-decoration: none; /* 下線を消す */
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3; /* リンクホバー時の色 */
+}
+
+/* メインヘッダーのスタイル */
+.main-heading {
+    margin-top: 0;
+    margin-bottom: 0; /* メッセージとの間隔を設定 */
+}
+
+/* ウェルカムメッセージのスタイル */
+.welcome-message {
+    text-align: center;
+    margin: 20px 0 30px; /* 上下のマージンを設定 */
+    padding: 15px;
+    background-color: #e9ecef; /* 薄いグレーの背景色 */
+    border-radius: 5px;
+    font-size: 1em; /* 文字サイズをデフォルトに */
+    
+}
+
+/* ナビゲーションバーのスタイル */
+nav {
+    position: absolute; /* 追加: 絶対位置指定 */
+    top: 25px; /* 追加: 上端からの位置 */
+    right: 20px; /* 追加: 右端からの位置 */
+}
+
+/* ナビゲーションバーのスタイル */
+nav ul {
+    list-style-type: none; /* リストのスタイルをなしに */
+    padding: 0; /* デフォルトのパディングをリセット */
+    margin: 0; /* デフォルトのマージンをリセット */
+    display: flex; /* 横並びにするためのスタイル */
+}
+
+nav ul li {
+    margin-right: 20px; /* 項目間のマージンを設定 */
+}
+
+/* ナビゲーションリンクのスタイル */
+nav a {
+    color: #007bff; /* ナビゲーションリンクの色 */
+    text-decoration: none; /* 下線を消す */
+    padding: 5px 10px; /* リンクのパディングを設定 */
+}
+
+nav a:hover {
+    color: #0056b3; /* ホバー時の色を設定 */
+}
+
+/* メッセージ表示部分のスタイル */
+.messages ul {
+    list-style-type: none; /* リストのスタイルをなしに */
+    padding: 0; /* デフォルトのパディングをリセット */
+    text-align: center; /* メッセージを中央に配置 */
+}
+
+.messages li {
+    color: red; /* エラーメッセージなどの色を設定 */
+}
+
+/* ボタンコンテナのスタイル */
+.auth-buttons {
+    display: flex;
+    justify-content: center; /* ボタンを中央に */
+    gap: 30px; /* ボタン間のスペース */
+    margin-top: 10px; /* ウェルカムメッセージとの間隔 */
+}
+
+/* 全ての主要コンテンツを中央揃えにする */
+.main-content {
+    flex-grow: 1; /* コンテンツ部分が利用可能なスペースを全て使うように */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    padding-bottom: 60px; /* フッターの高さに応じて調整 */
+}
+
+/* フォームコンテナのスタイル */
+.form-container {
+    width: 100%; /* フォームの幅を指定 */
+    max-width: 400px; /* 最大幅を指定 */
+    margin: 0 auto; /* 中央揃え */
+    padding: 20px; /* 内側の余白を指定 */
+    background: #fff; /* 背景色を白に */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を出す */
+    border-radius: 8px; /* 角丸の程度を指定 */
+    
+}
+
+/* 各フォーム要素のスタイル */
+.form-container p,
+.form-container input,
+.form-container button {
+    width: 100%; /* 要素の幅をフォームコンテナに合わせる */
+    margin-bottom: 15px; /* 要素間の余白を指定 */
+    box-sizing: border-box; /* パディングとボーダーを幅に含める */
+}
+
+.login-form-container {
+    width: 100%; /* フォームの幅を指定 */
+    max-width: 400px; /* 最大幅を指定 */
+    margin: 0 auto; /* 中央揃え */
+    padding: 50px 40px; /* 余白を増やして縦に長くする */
+    background: #fff; /* 背景色を白に */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を出す */
+    border-radius: 8px; /* 角丸の程度を指定 */
+}
+
+/* フォーム自体のスタイル */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form p,
+.login-form input,
+.login-form button {
+    width: 100%; /* 要素の幅をフォームコンテナに合わせる */
+    margin-bottom: 15px; /* 要素間の余白を指定 */
+    box-sizing: border-box; /* パディングとボーダーを幅に含める */
+}
+
+/* password-instructionsクラスのスタイル */
+.password-instructions {
+    margin: 10px auto; /* 上下のマージンを調整 */
+    padding: 10px; /* 内側のパディングを追加 */
+    padding-left: 15px; /* 左のパディングを20pxに設定して少し右に寄せる */
+    background-color: #e9ecef; /* 薄い背景色を設定 */
+    border-radius: 4px; /* 角を丸くする */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ソフトなシャドウ */
+    max-width: 500px; /* 最大幅 */
+    text-align: left; /* テキストを左揃え */
+}
+
+/* パスワード要件リストのスタイル */
+ul.password-requirements {
+    padding-left: 30px; /* リストのパディングを調整 */
+    list-style-type: disc; /* リストアイテムのスタイルタイプを設定 */
+}
+
+@media (max-width: 768px) {
+    /* ...他のメディアクエリ... */
+    .back-button,
+    .signup-button {
+        margin: 10px 0; /* 上下のマージンを統一 */
+        width: 100%; /* モバイルビューでボタンの幅を最大に */
+    }
+}
+
+/* ここからdashboardのスタイル */
+.dashboard-title {
+    margin-top: 30px; /* 上のマージンを追加して間隔を空ける */
+    margin-bottom: 30px; /* 下のマージンを追加して間隔を空ける */
+}
+
+.dashboard-movie-list-container {
+    display: flex;
+    justify-content: space-around; /* コンテナ全体をセンター寄せにします */
+    flex-wrap: wrap; /* 必要に応じてアイテムを折り返します */
+    margin: 0 auto; /* 左右のマージンを自動にして中央揃え */
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+    padding: 0 15px; /* 左右の内側余白を設定 */
+    text-align: center;
+    margin-bottom: 30px; /* 映画一覧と検索バーの間隔を設定 */
+}
+
+.dashboard-movie-list-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+  
+.dashboard-movie-list {
+    display: flex;
+    gap: 20px; /* 映画のサムネイル間のスペースを調整 */
+    flex-wrap: wrap; /* 必要に応じて折り返し */
+}
+
+.dashboard-movie-thumbnail, .dashboard-all-movies-link {
+    flex: 1 0 calc(25% - 20px); /* Ensure 4 items per row with spacing */
+    margin: 0 10px; /* 個々のアイテムに外側余白を設定 */
+    box-sizing: border-box;
+}
+
+.dashboard-movie-thumbnail:hover {
+    transform: translateY(-10px); /* ホバー時に少し上に動かします */
+}
+
+.dashboard-movie-thumbnail img {
+    width: 80%; /* 画像の固定幅 */
+    height: auto;
+}
+
+.dashboard-all-movies-link {
+    flex-basis: calc(25% - 20px); /* 4つ目の要素も同じ幅に */
+    text-align: center; /* リンクの中央揃えのため */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* サムネイルと同じ高さに */
+    border: 1px solid #ddd; /* 枠線で要素を示す */
+    padding: 10px; /* 内側のスペース */
+    box-sizing: border-box; /* パディングを含む計算 */  
+}
+
+.dashboard-all-movies-link a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.dashboard-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px; /* 上の要素との間隔 */
+}
+
+/* 検索フォーム全体を中央揃えに */
+.dashboard-search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* 要素間のスペース */
+}
+  
+/* フォーム内のボタンを横並びにするためのコンテナ */
+.dashboard-form-buttons {
+    display: flex;
+    justify-content: center; /* ボタンを中央に寄せる */
+    gap: 20px; /* ボタン間のスペース */
+    margin-bottom: 60px;
+}
+
+.dashboard-button-search {
+    background-color: #15acb1; /* 検索ボタンの背景色 */
+    color: white; /* 検索ボタンのテキスト色 */
+    padding: 5px 15px; /* 検索ボタンのパディング */
+    border: none; /* 枠線をなくす */
+    border-radius: 4px; /* 角丸の半径 */
+    cursor: pointer; /* ホバー時のカーソル */
+}
+  
+.dashboard-button-clear {
+    background-color: #15acb1; /* クリアボタンの背景色 */
+    color: white; /* クリアボタンのテキスト色 */
+    padding: 5px 15px; /* クリアボタンのパディング */
+    border: none; /* 枠線をなくす */
+    border-radius: 4px; /* 角丸の半径 */
+    cursor: pointer; /* ホバー時のカーソル */
+}
+  
+.dashboard-search-bar{
+    height: 20px; /* 検索バーの高さを調整 */
+    padding: 8px 10px; /* 上下左右のパディングを調整 */
+    max-width: 300px; /* 最大幅を設定 */
+    width: 100%; /* 幅を親要素に合わせる */
+}
+
+/* フォームの各要素を適切な最大幅に設定 */
+.dashboard-form-select, .dashboard-form-number, .dashboard-form-buttons{
+    max-width: 300px; /* 最大幅を設定 */
+    width: 100%; /* 幅を親要素に合わせる */
+}
+  
+/* セレクトボックスと数値入力欄のスタイル */
+.dashboard-form-select, .dashboard-form-number {
+    border: 1px solid #ccc; /* 枠線のスタイル */
+    padding: 10px; /* 内側の余白 */
+    border-radius: 5px; /* 角丸のスタイル */
+}
+
+.dashboard-button-movie-register {
+    color: white; /* 映画登録ボタンのテキスト色 */
+    padding: 5px 15px; /* 映画登録ボタンのパディング */
+    border: none; /* 枠線をなくす */
+    border-radius: 4px; /* 角丸の半径 */
+    cursor: pointer; /* ホバー時のカーソル */
+    margin-bottom: 60px;
+}
+
+/* ここからmovie_registerのスタイル */
+.movie-register-title {
+    margin-top: 30px; /* 上のマージンを追加して間隔を空ける */
+    margin-bottom: 30px; /* 下のマージンを追加して間隔を空ける */
+}
+
+/* 映画登録フォームのコンテナを中央に寄せる */
+.movie-register-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+  
+/* 映画登録フォームのスタイリング */
+.movie-register-form {
+    margin-top: 20px; /* フォームの上のマージン */
+}
+  
+/* 入力フィールドとボタンを含むフォーム内の要素 */
+.movie-register-form input,
+.movie-register-form select,
+.movie-register-form textarea{
+    margin-bottom: 15px; /* 要素間のマージン */
+    max-width: 500px; /* 最大幅 */
+    width: 100%; /* 親要素に合わせて幅を設定 */
+    padding: 10px; /* パディング */
+    border: 1px solid #ccc; /* 枠線 */
+    border-radius: 5px; /* 角丸 */
+}
+
+
+/* 「登録」ボタン専用のスタイリング */
+.movie-register-submit-button {
+    padding: 7px 30px; /* 内側の余白 */
+    text-align: center; /* テキストを中央揃え */
+    text-decoration: none; /* テキストの下線を消す */
+    color: white; /* テキスト色 */
+    background-color: #15acb1; /* 背景色 */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 4px; /* 角丸の半径 */
+    display: block; /* ブロックレベル要素に設定 */
+    margin: 10px auto; /* 上下マージンは20px、左右マージンは自動で中央揃え */
+    width: auto; /* ボタンの幅を内容に合わせて自動調整 */
+    max-width: 200px; /* 最大幅を設定 */
+}
+
+/* 戻るボタンのスタイリング */
+.movie-register-back-button {
+    margin: 20px auto; /* 上下のマージンと自動の左右マージンで中央に */
+    padding: 5px 15px; /* パディング */
+    text-decoration: none; /* テキストの下線を消す */
+    color: white; 
+    background-color: #007BFF; /* 背景色 */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 4px; /* 角丸の半径 */
+}
+
+.movie-register-complete-button {
+    padding: 7px 30px; /* 内側の余白 */
+    text-align: center; /* テキストを中央揃え */
+    text-decoration: none; /* テキストの下線を消す */
+    color: white; /* テキスト色 */
+    background-color: #007BFF; /* 背景色 */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 4px; /* 角丸の半径 */
+    display: block; /* ブロックレベル要素に設定 */
+    margin: 10px auto; /* 上下マージンは20px、左右マージンは自動で中央揃え */
+    width: auto; /* ボタンの幅を内容に合わせて自動調整 */
+    max-width: 200px; /* 最大幅を設定 */
+}
+
+.search-results-movie-list-container {
+    display: flex;
+    flex-wrap: wrap; /* 必要に応じてアイテムを折り返します */
+    justify-content: space-between; /* アイテム間に均等なスペースを設定 */
+    margin: 0 auto; /* 左右のマージンを自動にして中央揃え */
+    margin-top: 20px;
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+    padding: 10px; /* 左右の内側余白を設定 */
+    align-items: flex-start;
+    margin-bottom: 30px; /* 映画一覧と検索バーの間隔を設定 */
+    gap: 40px; /* アイテム間にギャップを設定 */
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+}   
+
+.search-results-movie-thumbnail {
+    flex: 1 0 calc(33.333% - 20px); /* 1行あたり3つのアイテムに調整 */
+    box-sizing: border-box;
+    height: auto; /* 高さは自動で調整 */
+    margin: 0 10px 10px; /* サムネイルのマージン */
+    text-align: center; /* サムネイル内のテキストを中央揃えに */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Flexアイテム内のコンテンツを中央に配置 */
+}
+
+.search-results-movie-thumbnail:hover {
+    transform: translateY(-10px); /* ホバー時に少し上に動かします */
+}
+
+.search-results-movie-thumbnail img {
+    max-width: 60%; /* サムネイル画像の最大幅をサムネイルのコンテナ幅に合わせる */
+    height: auto; /* サムネイル画像の高さを自動調整 */
+}
+
+/* 映画タイトルとプロットのテキストサイズを小さくする */
+.search-results-movie-thumbnail p {
+    font-size: 0.8em; /* デフォルトより少し小さいサイズに設定 */
+}
+
+.no-movies-message {
+    text-align: center; /* テキストを中央揃えに */
+    margin-top: 0.5em; /* '検索結果' の下に少しスペースを作る */
+}
+
+.back-button-container {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に中央揃えに */
+    margin-top: 20px; /* メッセージの下に少しスペースを作る */
+}
+
+/* Flexboxコンテナのスタイル設定 */
+.movie-list {
+    display: flex;
+    flex-wrap: wrap; /* 必要に応じてアイテムを折り返します */
+    justify-content: space-between; /* アイテム間に均等なスペースを設定 */
+    margin: 0 auto; /* 左右のマージンを自動にして中央揃え */
+    margin-top: 20px;
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+    padding: 10px; /* 左右の内側余白を設定 */
+    align-items: flex-start;
+    margin-bottom: 30px; /* 映画一覧と検索バーの間隔を設定 */
+    gap: 40px; /* アイテム間にギャップを設定 */
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+}
+
+.movie-list-movie-thumbnail {
+    flex: 1 0 calc(33.333% - 20px); /* 1行あたり3つのアイテムに調整 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Flexアイテム内のコンテンツを中央に配置 */
+    align-items: center; /* アイテムを中央に配置 */
+    text-align: center; /* テキストを中央揃えに */
+    margin: 0 10px 10px; /* サムネイルのマージン */
+    box-sizing: border-box;
+    position: relative; /* タイトルを絶対位置で配置するための設定 */
+}
+
+.movie-list-movie-thumbnail img {
+    width: 60%; /* 画像がサムネイルのコンテナサイズに合わせて伸縮するように設定 */
+    height: auto; /* 画像の縦横比を維持 */
+}
+
+.movie-list-movie-thumbnail h3 {
+    margin-top: 8px; /* タイトルの上のマージンを設定、サムネイルとのスペースを確保 */
+    width: 100%; /* タイトル幅をサムネイル幅に合わせる */
+}
+
+/* 映画詳細ページのスタイリング */
+.movie-detail-container {
+    display: flex; /* Flexboxを使用 */
+    flex-direction: column; /* 子要素を縦に並べる */
+    align-items: center; /* 水平方向の中央揃え */
+    justify-content: center; /* 垂直方向の中央揃え */
+    height: 100%; /* コンテナの高さをビューポートの高さに合わせる */
+    padding: 20px; /* コンテンツとの間隔を設ける */
+    box-sizing: border-box; /* paddingをwidthとheightに含める計算方法 */
+}
+
+.movie-detail-movie-image {
+    width: auto; /* 画像の幅は自動で調整 */
+    height: auto; /* 高さは自動調整 */
+    max-width: 100%; /* コンテナの幅を超えないように最大幅を指定 */
+    max-height: 80vh; /* 画像の最大高さをビューポートの高さの80%に */
+    margin-bottom: 20px; /* 画像と下部コンテンツとの間隔 */
+}
+
+.movie-detail-movie-info {
+    display: inline-block; /* 詳細情報をインラインブロックで表示 */
+    text-align: center; /* テキストは左揃え */
+    margin-bottom: 20px; /* 下のコンテンツとの間隔 */
+}
+
+/* 映画詳細ページ内のpタグのスタイリング */
+.movie-detail-container p {
+    font-size: 1.1em; /* 文字のサイズを大きくする */
+}
+
+/* あらすじのテキストをバランス良く表示するためのスタイリング */
+.movie-detail-container .movie-plot {
+    margin: 0 auto; /* 中央揃え */
+    padding: 0 5%; /* 左右にパディングを設定 */
+    text-align: justify; /* テキストの両端揃えを設定 */
+    max-width: 800px; /* あらすじのテキストの最大幅を設定 */
+}
+
+/* 公開年のスタイルを更新（もしこの要素にクラスまたはIDがある場合） */
+.release-year {
+    margin-bottom: 0; /* 下のマージンをなくす、または小さくする */
+}
+
+.edit-movie-button {
+    background-color: #15acb1; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 200px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 10px auto; /* 適切なマージン */
+    margin-top: 10px; /* 上のマージンを追加 */
+    margin-bottom: 60px; /* 下のマージンを追加して、レビュー見出しとの間を空ける */
+}
+
+/* 映画レビュー全体のスタイル */
+.movie-reviews-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+  
+/* レビュー投稿リンクのスタイル */
+.review-link {
+    background-color: #15acb1; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 200px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 10px auto; /* 適切なマージン */
+    margin-top: 10px; /* 上のマージンを追加 */
+    margin-bottom: 60px; /* 下のマージンを追加して、レビュー見出しとの間を空ける */
+}   
+  
+/* レビュー全体のスタイル */
+.review {
+    width: 100%; /* ここでレビューの幅を調整できます */
+    max-width: 800px; /* 最大幅を設定 */
+    border-bottom: 1px solid #ccc; /* 下線を追加 */
+    padding-bottom: 10px; /* 下部のパディングを追加 */
+    margin-bottom: 20px; /* 次のレビューまでの間隔を追加 */
+}
+  
+/* Good/Badボタンのスタイル */
+.vote-button {
+    margin-right: 10px; /* 右の余白を設定 */
+}
+  
+/* お気に入りボタンのスタイリング */
+#favorite-button.favorite-added {
+    background-color: #6c757d; /* お気に入り済みボタンの背景色 */
+    color: white; /* テキスト色 */
+    border: none; /* 枠線なし */
+}
+
+#favorite-button {
+    background-color: #f225b1; /* お気に入りに追加するボタンの背景色 */
+    color: white; /* テキスト色 */
+    padding: 10px 20px; /* パディング */
+    margin-top: 20px; /* お気に入りボタンと上部コンテンツとの間隔 */
+    margin-bottom: 20px;
+    border: none; /* 枠線なし */
+    cursor: pointer; /* カーソルを指マークに */
+    transition: background-color 0.3s ease; /* 背景色の変化を滑らかに */
+    border-radius: 4px; /* 角を丸くする */
+}
+
+#favorite-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.all-movie-reviews {
+    background-color: #007BFF; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 220px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 10px auto; /* 適切なマージン */
+    margin-top: 10px; /* 上のマージンを追加 */
+    white-space: nowrap; /* テキストを折り返さない */
+}
+
+.movie-detail-edit-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* 必要に応じて調整 */
+}
+
+.movie-detail-edit-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px; /* フォームの幅に合わせて調整 */
+    margin: auto; /* 利用可能なスペースの中心にコンテナを配置 */
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+/* 入力フィールドのスタイル */
+.movie-detail-edit-form-container input,
+.movie-detail-edit-form-container textarea,
+.movie-detail-edit-form-container select {
+    width: calc(100% - 20px); /* 全幅から余白分を引く */
+    padding: 10px; /* パディングを追加して入力項目を大きく表示 */
+}
+
+/* フォーム内のコンテナスタイリング */
+.movie-detail-edit-form-container form {
+    width: 100%;    
+}
+
+.btn-primary {
+    background-color: #15acb1; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 200px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 0 20px; /* 余計なマージンを取り除く */
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease; /* トランジションを滑らかに */
+}
+
+.btn-secondary {
+    background-color: #007BFF; /* 登録ボタンと同じ背景色 */
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block; /* インラインブロック要素として表示 */
+    max-width: 200px; /* ボタンの最大幅を設定 */
+    width: auto; /* 幅を内容に合わせて自動調整 */
+    margin: 0 20px; /* 余計なマージンを取り除く */
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease; /* トランジションを滑らかに */
+} 
+    
+.movie-detail-edit-auth-buttons {
+    display: flex;
+    justify-content: center; /* ボタンを中央に */
+    margin: 0 5px;
+    margin-top: 10px; /* ウェルカムメッセージとの間隔 */
+}
+
+/* Clear チェックボックスのスタイリング */
+.clear-checkbox-container label {
+    margin-right: 5px; /* ラベルとチェックボックスの間の余白 */
+}
+
+/* 映画のカバー画像フィールドの全体的なスタイリング */
+.movie-detail-edit-form-field {
+    margin-bottom: 20px; /* 各フィールドの間の余白 */
+}
+
+/* 現在のファイルを示すセクションのスタイリング */
+.currently {
+    margin-bottom: 10px; /* セクション間の余白 */
+}
+
+/* ファイル変更セクションのスタイリング */
+.change {
+    margin-bottom: 10px; /* セクション間の余白 */
+}
+
+/* クリアチェックボックスセクションのスタイリング */
+.clear {
+    display: flex; /* フレックスボックスとして表示 */
+    align-items: center; /* チェックボックスとラベルを垂直方向に中央揃え */
+    margin-bottom: 10px;
+}
+
+/* クリアチェックボックスのスタイリング */
+.clear label {
+    display: flex;
+    align-items: center;
+    margin-right: 5px; /* チェックボックスとラベルの間隔 */
+}
+
+/* チェックボックスとラベルのスタイリング */
+.clear input[type="checkbox"] {
+    display: block;
+    margin-right: 5px; /* チェックボックスの右側の余白 */
+}
+
+.mypage-content{
+    text-align: center;
+}
+
+.mypage-content a {
+    display: block;
+    margin: 10px 0; /* 上下に10pxの余白を追加 */
+    color: #0000EE; /* リンクの色を設定する場合はこれを変更 */
+    text-decoration: none; /* リンクの下線を削除する場合はこれを追加 */
+}
+
+.mypage-content .button.back-button {
+    padding: 10px 15px; /* ボタンのパディング */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* ボタンの文字色 */
+    border-radius: 4px; /* 角の丸み */
+    text-align: center;
+    margin: 20px auto; /* マージンで上下にスペースを作り、左右を中央揃えにする */
+    display: inline-block; /* ボタンはインラインブロック要素として扱う */
+    text-decoration: none; /* リンクの下線を削除 */
+}
+
+.my-reviews {
+    text-align: center;
+    max-width: 800px; /* レビューの最大幅を設定 */
+    margin: 20px auto; /* 上下にマージンを設け、左右のマージンをautoにすることで中央揃えに */
+    border-bottom: 1px solid #ccc; /* 下部に境界線を追加 */
+    padding-bottom: 20px; /* 境界線と内容の間に余白を設ける */
+}
+
+.navigation-buttons {
+    text-align: center; /* ナビゲーションボタンを中央揃えに */
+    margin-top: 20px; /* ナビゲーションボタンの上に余白を設ける */
+}
+
+.navigation-buttons .button {
+    margin: 5px; /* ボタン間に余白を設ける */
+    display: inline-block; /* ボタンをインラインブロック要素として表示 */
+    padding: 10px 20px; /* ボタンの内側に余白を設ける */
+    background-color: #007BFF; /* ボタンの背景色 */
+    color: white; /* ボタンの文字色 */
+    border-radius: 5px; /* 角の丸み */
+    text-decoration: none; /* リンクの下線を削除 */
+}
+
+/* CSSファイルまたは <style> タグ内に追加 */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 水平方向の中央寄せ */
+    align-items: center ; /* 垂直方向の上揃え（必要に応じて変更可） */
+    padding: 20px;
+}
+  
+.edit-review-form {
+    /* 必要に応じて最大幅を設定 */
+    max-width: 800px;
+    width: 100%;    
+    /* その他のスタイル（パディングやボーダーなど）をここに追加 */
+}
+
+.button-group,
+.form-actions {
+    display: flex;
+    justify-content: center; /* 中央に配置 */
+    margin-top: 20px; /* 上部の余白 */
+}
+
+/* CSSファイルまたは <style> タグ内に追加 */
+.edit-review-form input[type="text"],
+.edit-review-form input[type="number"],
+.edit-review-form textarea,
+.edit-review-form select {
+    width: 100%; /* 要素を親コンテナの幅いっぱいに広げる */
+    padding: 10px; /* テキストが入力ボックスの端にくっつかないようにパディングを追加 */
+    margin-bottom: 10px; /* 要素間のスペースを追加 */
+}
+
+.edit-review-form input[type="checkbox"] {
+    margin-right: 10px; /* チェックボックスの後に少しスペースを追加 */
+}
+
+.edit-review-form label {
+    display: block; /* ラベルをブロック要素にし、それぞれのフォーム要素を新しい行に表示 */
+    margin-bottom: 5px; /* ラベルとフォーム要素の間にスペースを追加 */
+}
+
+.edit-review-form {
+    width: calc(50% - 10px); /* ボタンを横並びにして、隣り合うボタンとの間にスペースを設定 */
+    padding: 10px; /* ボタンの内側にスペースを追加 */
+}
+
+.edit-review-form .buttons-container button {
+    width: auto; /* ボタンが内容に応じてサイズを変更するように設定 */
+    padding: 5px 10px; /* ボタンの内側にスペースを追加 */
+    margin-right: 10px; /* ボタンの間にスペースを追加 */
+}
+
+.button-group button {
+    margin: 0 5px; /* ボタンの間隔 */
+    padding: 0.375rem 0.75rem; /* ボタンのパディング */
+    border: 1px solid #ccc; /* ボタンのボーダー */
+    background-color: #f8f9fa; /* ボタンの背景色 */
+    cursor: pointer; /* マウスオーバー時のカーソル */
+}
+
+/* フォームアクションボタンのスタイリング */
+.form-actions button {
+    background-color: #a4e3d4; 
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* トランジションを滑らかに */
+    margin: 0 10px; /* ボタンの間隔 */
+}
+  
+/* チェックボックスのスタイル（選択されたジャンルとシチュエーションのタグ表示部分） */
+#genre-tags,
+#situation-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* タグを中央に配置 */
+    gap: 10px; /* タグの間隔 */
+}
+  
+.checkbox {
+    padding: 5px; /* チェックボックスのパディング */
+}
+
+.edit-profile-submit{
+    display: flex;
+    justify-content: center; /* タグを中央に配置 */
+    margin-top: 20px;
+}
+
+.edit-profile-submit button {
+    background-color: #a4e3d4; 
+    padding: 5px 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* トランジションを滑らかに */
+}
+
+.password-change {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 水平方向の中央寄せ */
+    align-items: center; /* 垂直方向の中央寄せ */
+    padding: 20px;
+}
+
+.password-change form {
+    max-width: 500px; /* フォームの最大幅を設定 */
+    width: 100%; /* フォームの幅を調整 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* オプショナル: 影を追加して立体感を出す */
+    padding: 20px; /* フォーム内のパディングを追加 */
+    border-radius: 10px; /* フォームの角を丸める */
+}
+  
+.password-change form div {
+    margin-bottom: 20px; /* フォーム要素間の間隔を追加 */
+}
+  
+.password-change form button {
+    width: 30%; /* ボタンの幅をフォームに合わせて調整 */
+    padding: 10px 0; /* ボタンの縦のパディングを追加 */
+    margin-top: 20px; /* ボタンの上の余白を追加 */  
+}
+  
+.password-change form ul {
+    padding-left: 20px; /* 注意書きの箇条書きにパディングを追加 */
+    list-style-type: disc; /* 箇条書きのスタイルをディスクに設定 */
+}
+  
+.password-change form ul p {
+    font-weight: bold; /* 注意書きのタイトルを太字に設定 */
+}
+
+.password-change-button {
+    display: flex;
+    justify-content: center; /* 水平方向の中央に配置 */
+}
+
+.password-change-button button {
+    padding: 10px 20px; /* ボタンの大きさを調整 */
+    border: 1px solid #ccc; /* ボタンの境界線のスタイル */
+    background-color: #a4e3d4; /* ボタンの背景色 */
+    cursor: pointer; /* カーソルをポインタに設定 */
+}
+
+/* アカウント削除ページのコンテナスタイリング */
+.confirm-delete-container {
+    max-width: 600px;
+    margin: 50px auto; /* コンテンツを中央に配置 */
+    padding: 50px 20px;
+    text-align: center; /* テキストを中央寄せ */
+    background: #fff; /* 白背景 */
+    border-radius: 8px; /* 角丸 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を出す */
+}
+
+/* フォームのスタイルを調整 */
+.confirm-delete-form {
+    margin-top: 20px; /* フォームの上のマージンを追加 */
+}
+
+/* フォームのスタイリング */
+.confirm-delete-form .confirm-delete-form-group {
+    margin-bottom: 20px; /* フォーム要素のマージン */
+}
+
+.confirm-delete-form-errors {
+    color: red; /* エラーメッセージの色 */
+    margin-top: 10px; /* エラーメッセージの上の余白を追加 */
+}
+
+/* 削除ボタンのスタイリング */
+.confirm-delete-button {
+    background-color: #ff4d4d; /* 警告色 */
+    color: white;
+    border: none;
+    padding: 15px 30px; /* ボタンのサイズを大きくする */
+    font-size: 18px; /* フォントサイズを増やす */
+    border-radius: 5px;
+    text-decoration: none;
+    display: block; /* ブロック要素として表示 */
+    margin: 30px auto; /* 自動で左右中央に配置し、上下に余白を追加 */
+    width: fit-content; /* ボタンの幅を内容に合わせる */
+}
+
+/* キャンセルリンクのスタイリング */
+.cancel-link {
+    display: block; /* ブロック要素として表示 */
+    margin-top: 30px; /* 上のマージンを追加 */
+    color: #007bff; /* リンク色 */
+    text-decoration: underline; /* 下線をつける */
+    font-size: 18px; /* フォントサイズを増やす */
+}

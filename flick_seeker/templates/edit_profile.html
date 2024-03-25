@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>プロフィール編集</h1>
+
+  <div class="content-wrapper">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- ユーザー名のフィールド -->
+      <p>ユーザー名:</p>
+      {{ form.username }}
+
+      <!-- メールアドレスのフィールドを追加 -->
+      <p>メールアドレス:</p>
+      {{ form.email }}
+
+      <!-- アイコンの選択欄と現在のアイコンを表示 -->
+      <p>アイコン:</p>
+      {{ form.profile_image }}
+      {% if user.profile_image %}
+          <p>現在のアイコン:</p>
+          <img src="{{ user.profile_image.url }}" alt="Profile Image" style="width: 64px; height: 64px; border-radius: 50%;">
+      {% else %}
+          <p>プロフィール画像は登録されていません。</p>
+      {% endif %}
+
+      <!-- プロフィール入力欄 -->
+      <p>プロフィール:</p>
+      {{ form.bio }}
+
+      <div class="edit-profile-submit">
+        <button type="submit">更新する</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 戻るボタンを追加 -->
+  <a href="{% url 'flick_seeker:mypage' %}" class="button back-button">戻る</a>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Top Page{% endblock %}
+
+{% block content %}
+     <!-- コンテンツのタイトル -->
+    <div class="main-heading">
+        <h1>Welcome to Screen Speak</h1>
+    </div>
+
+    <!-- Screen Speakについてのメッセージ -->
+    <div class="welcome-message">
+        <p>Screen Speakへようこそ。</p>
+        <p>「今観たい映画を探す」をコンセプトに、あなたの気分や好みにぴったり合う映画を見つけるための場所です。</p>
+        <p>感動からスリルまで、あなたの今を彩る一作を。</p>
+    </div>
+
+    <!-- 新規登録とログインのボタン -->
+    <div class="auth-buttons">
+        <a class="button top-signup-button" href="{% url 'flick_seeker:signup' %}">新規登録</a>
+        <a class="button login-button" href="{% url 'flick_seeker:login' %}">ログイン</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>検索結果</h1>
+    <div class="search-results-movie-list-container">
+        {% if movies %}
+                {% for movie in movies %}
+                    <div class="search-results-movie-thumbnail">
+                        <!-- 映画詳細ページへのリンク -->
+                        <a href="{% url 'flick_seeker:movie_detail' movie.id %}">
+                            <!-- 映画のサムネイル画像がある場合は表示 -->
+                            {% if movie.thumbnail %}
+                                <img src="{{ movie.thumbnail.url }}" alt="{{ movie.title }} Thumbnail">
+                            {% else %}
+                                <!-- サムネイルがない場合は、代わりのテキストまたは画像を表示します。 -->
+                                <img src="/media/movie_thumbnails/default-thumbnail.png" alt="デフォルトのサムネイル">
+                            {% endif %}
+                        </a>
+                        <h3><a href="{% url 'flick_seeker:movie_detail' movie.id %}">{{ movie.title }}</a></h3>
+                        <!-- 平均レーティングの表示。レーティングがなければ「評価なし」と表示します。 -->
+                        <p>平均評価: 
+                            {% if movie.average_rating %}
+                                {{ movie.average_rating|floatformat:"1" }}
+                                {% else %}評価なし
+                            {% endif %}</p>
+                        <div>
+                            <p>{{ movie.plot }}</p>
+                            <!-- その他の映画情報を表示 -->
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-movies-message">
+                    <p>該当する映画が見つかりませんでした。</p>
+                </div>
+        {% endif %}
+    </div>
+
+    <div class="back-button-container">
+        <!-- 前の画面に戻るボタン -->
+        <a href="{% url 'flick_seeker:dashboard' %}" class="button back-button">戻る</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="confirm-delete-container">
+    <h1>アカウント削除の確認</h1>
+    <p>アカウントを削除する前に、以下のフォームにパスワードを入力してください。</p>
+
+    <form method="post" class="confirm-delete-form">
+      {% csrf_token %}
+      <div class="confirm-delete-form-group">
+        {{ form.password.label_tag }} 
+        {{ form.password }}
+        {% if form.password.errors%}
+          <div class="confirm-delete-form-errors">
+            {{ form.password.errors }}
+          </div>
+        {% endif %}
+      </div>
+      <button type="submit" class="confirm-delete-button">アカウントを削除する</button>
+    </form> 
+
+    <a href="{% url 'flick_seeker:mypage' %}" class="cancel-link">キャンセル</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>映画の登録が完了しました</h1>
+  
+  <!-- ダッシュボードへの遷移ボタン -->
+  <a href="{% url 'flick_seeker:dashboard' %}" class="button movie-register-complete-button">ホームへ</a>
+  
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>マイレビュー一覧</h2>
+
+<!-- レビューの一覧を表示 -->
+{% for review in reviews %}
+    <div class="my-reviews">
+        <!-- 映画のサムネイルを表示 -->
+        {% if review.movie.thumbnail %}
+            <img src="{{ review.movie.thumbnail.url }}" alt="{{ review.movie.title }} Thumbnail" style="width: 400px; height: auto;">
+        {% endif %}
+        <h3>{{ review.movie.title }}</h3> <!-- 映画のタイトル -->
+        <p><strong>{{ review.title }}</strong></p>
+        <p>評価: {{ review.rating }}</p> <!-- 評価スコア -->
+        <p>{{ review.comment }}</p> <!-- レビューコメント -->
+        <p>投稿日: {{ review.created_at }}</p> <!-- 投稿日時 -->
+        <!-- 編集や削除のリンク（必要に応じて） -->
+        <a href="{% url 'flick_seeker:edit_review' review.id %}">編集・削除</a>
+    </div>
+{% empty %}
+    <p>レビューはありません。</p>
+{% endfor %}
+
+<!-- ナビゲーションボタン -->
+<div class="navigation-buttons">
+  <!-- 前の画面へ戻るボタン -->
+  <a href="{% url 'flick_seeker:mypage' %}" class="button">戻る</a>
+
+  <!-- ホーム画面へのリンクボタン -->
+  <br><a href="{% url 'flick_seeker:dashboard' %}" class="button">ホームへ</a></br>
+</div>
+
+{% endblock %}

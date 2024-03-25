@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>お気に入り一覧</h2>
+
+  <div class="movie-list">
+    {% for favorite in favorites %}
+      <div class="favorite-item">
+        <!-- タイトルとサムネイルをクリックすると映画詳細に遷移するように設定 -->
+        <a href="{% url 'flick_seeker:movie_detail' favorite.movie.id %}">
+          <!-- サムネイルが存在する場合のみ画像を表示 -->
+          {% if favorite.movie.thumbnail %}
+            <img src="{{ favorite.movie.thumbnail.url }}" alt="{{ favorite.movie.title }} Thumbnail" style="width: 300px; height: auto;">
+          {% endif %}
+          <h3>{{ favorite.movie.title }}</h3>
+        </a>
+      </div>
+    {% empty %}
+      <p>お気に入りの映画はありません。</p>
+    {% endfor %}
+</div>
+
+<!-- ナビゲーションボタン -->
+<div class="navigation-buttons">
+  <!-- 前の画面へ戻るボタン -->
+  <a href="{% url 'flick_seeker:mypage' %}" class="button">戻る</a>
+
+  <!-- ホーム画面へのリンクボタン -->
+  <br><a href="{% url 'flick_seeker:dashboard' %}" class="button">ホームへ</a></br>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>映画一覧</h1>
+  <div class="movie-list">
+    {% for movie in movies %}
+      <div class="movie-list-movie-thumbnail">
+        <a href="{% url 'flick_seeker:movie_detail' movie.id %}">
+          <!-- サムネイルが存在する場合のみ画像タグを表示 -->
+          {% if movie.thumbnail %}
+            <img src="{{ movie.thumbnail.url }}" alt="{{ movie.title }} Thumbnail">
+          {% endif %}
+          <h3>{{ movie.title }}</h3>
+        </a>
+      </div>
+    {% empty %}
+      <p>映画が見つかりませんでした。</p>
+    {% endfor %}
+  </div>
+
+   <!-- 前の画面へ戻るボタン -->
+   <a href="{% url 'flick_seeker:dashboard' %}" class="button back-button">戻る</a>
+
+{% endblock %}

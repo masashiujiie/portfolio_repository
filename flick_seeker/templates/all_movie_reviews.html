@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  {% if reviews %}
+    <!-- レビューが存在する場合は、最初のレビューから映画タイトルを取得します -->
+    <h1>{{ reviews.first.movie.title }}の全レビュー</h1>
+  {% else %}
+    <!-- レビューがない場合は、代わりのタイトルを表示します -->
+    <h1>映画レビュー一覧</h1>
+  {% endif %}
+  
+  <div class="movie-reviews-container">
+    {% for review in reviews %}
+      <div class="review">
+      <!-- ユーザーのアイコン表示 -->
+        {% if review.user.profile_image %}
+          <img src="{% if review.user.profile_image %}{{ review.user.profile_image.url }}{% else %}{{ MEDIA_URL }}default-thumbnail.png{% endif %}" alt="{{ review.user.username }}'s Profile Icon" style="width: 50px; height: 50px; border-radius: 50%;">
+          <span>{{ review.user.username }}さん</span>
+        {% endif %}
+        <!-- レビュータイトルとユーザー名の表示 -->
+        <p><strong>{{ review.title }}</strong></p> 
+        <p>評価: {{ review.rating }}</p>
+        {% if review.spoiler %}
+          <!-- ネタバレがある場合、クリックして表示する -->
+          <p class="spoiler">ネタバレあり: <a href="#" onclick="toggleSpoilerVisibility(this);return false;">内容を表示</a></p>
+          <div class="spoiler-content" style="display:none;">{{ review.comment }}</div>
+        {% else %}
+          <!-- ネタバレがない場合、そのままコメントを表示 -->
+          <p>{{ review.comment }}</p>
+        {% endif %}
+
+        <!-- ハッシュタグを表示するコードを追加 -->
+        <p>ハッシュタグ:</p>
+        <ul>
+          {% for hashtag in review.hashtags %}
+            <li>{{ hashtag.hashtag.label }}</li>
+          {% endfor %}
+        </ul>
+
+        <button class="vote-button" data-review="{{ review.id }}" data-vote-type="good">Good: {{ review.good_count }}</button>
+        <button class="vote-button" data-review="{{ review.id }}" data-vote-type="bad">Bad: {{ review.bad_count }}</button>
+      </div>
+    {% empty %}
+      <p>レビューはありません。</p>
+    {% endfor %}
+  </div>
+  
+  <!-- 映画詳細ページに戻るリンク。movie_id はビューから渡されるべきです -->
+  {% if reviews %}
+    <a href="{% url 'flick_seeker:movie_detail' reviews.first.movie.id %}" class="button back-button">映画詳細に戻る</a>
+  {% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Good/BadボタンのAjaxリクエスト
+    document.querySelectorAll('.vote-button').forEach(button => {
+        console.log("投票ボタンが設定されました:", button); // 各ボタンのログ
+        button.addEventListener('click', function() {
+            console.log("Vote button clicked", this);
+            // 投票ボタンを無効にする処理
+            disableOppositeButton(this);
+            
+            const reviewId = this.dataset.review;
+            const voteType = this.dataset.voteType;
+            fetch(`/review/${reviewId}/vote/${voteType}/`, {
+                method: 'POST',
+                headers: {'X-CSRFToken': getCookie('csrftoken')},
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("投票のレスポンス:", data); // レスポンスのログ
+                // 投票カウントの更新
+                updateVoteCount(this, data);
+                // 逆のボタンを再度有効にする処理   
+                enableOppositeButton(this);
+            });
+        });
+    });
+
+    // 逆のボタンを無効にする関数
+    function disableOppositeButton(clickedButton) {
+        let oppositeVoteType = clickedButton.dataset.voteType === 'good' ? 'bad' : 'good';
+        let oppositeButton = clickedButton.parentElement.querySelector(`[data-vote-type=${oppositeVoteType}]`);
+        if (oppositeButton) {
+            oppositeButton.disabled = true;
+        }
+    }
+
+    // 逆のボタンを有効にする関数
+    function enableOppositeButton(clickedButton) {
+        let oppositeVoteType = clickedButton.dataset.voteType === 'good' ? 'bad' : 'good';
+        let oppositeButton = clickedButton.parentElement.querySelector(`[data-vote-type=${oppositeVoteType}]`);
+        if (oppositeButton) {
+            oppositeButton.disabled = false;
+        }
+    }
+
+    // ボタンのテキストを更新する関数
+    function updateVoteCount(button, data) {
+        // レスポンスから取得したgood_countとbad_countを使用してカウントを更新
+        if ('good_count' in data && 'bad_count' in data) {
+            // 対応するボタンを見つける
+            let goodButton = button.parentElement.querySelector('[data-vote-type="good"]');
+            let badButton = button.parentElement.querySelector('[data-vote-type="bad"]');
+            // ボタンのテキストを新しいカウントで更新
+            goodButton.textContent = `Good: ${data.good_count}`;
+            badButton.textContent = `Bad: ${data.bad_count}`;
+        } else {
+            // 応答データに必要なプロパティがない場合はエラーをログに記録
+            console.error('Good count or Bad count is missing from the response', data);
+        }
+    }
+
+    // CSRFトークン取得のためのヘルパー関数
+    function getCookie(name) {
+        console.log("CSRFトークンを取得します:", name); // トークン取得のログ
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        console.log("取得したCSRFトークン:", cookieValue); // 取得したトークンのログ
+        return cookieValue;
+    }
+
+    function toggleSpoilerVisibility(link) {
+      var spoilerContent = link.parentNode.nextElementSibling;
+      if (spoilerContent.style.display === 'none') {
+        spoilerContent.style.display = 'block';
+        link.textContent = '内容を隠す';
+      } else {
+        spoilerContent.style.display = 'none';
+        link.textContent = '内容を表示';
+      }
+    }
+</script>
+{% endblock %}

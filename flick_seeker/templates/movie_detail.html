@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="movie-detail-container">
+    <h1>{{ movie.title }}</h1>
+    {% if movie.thumbnail %}
+      <img class="movie-detail-movie-image" src="{{ movie.thumbnail.url }}" alt="{{ movie.title }} Thumbnail">
+    {% endif %}
+
+    <div class="movie-detail-movie-info">  
+      <p>平均評価: {{ average_rating }}</p> 
+      <p class="movie-plot"><strong>あらすじ:</strong> {{ movie.plot }}</p>
+      <p><strong>監督:</strong> {{ movie.director }}</p>
+      <p><strong>出演者:</strong> {{ movie.cast }}</p>
+      <p class="release-year"><strong>公開年:</strong> {{ movie.release_year }}</p>
+    </div>
+  </div>
+
+  <!-- ユーザーが認証されている場合、編集ページへのリンクを表示 -->
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'flick_seeker:movie_detail_edit' movie.id %}" class="button edit-movie-button">映画情報を編集</a>
+  {% endif %}
+
+  <!-- レビュー表示 -->
+  <div class="movie-reviews-container">
+    <h2>映画レビュー</h2>
+    <!-- レビュー投稿リンク -->
+    <a href="{% url 'flick_seeker:add_review' movie.id %}" class="button review-link">レビューを書く</a>
+
+    <!-- 最初の3件のレビューのみを表示 -->
+    {% for review in reviews|slice:":3" %} 
+      <div class="review">
+      <!-- ユーザーのアイコン表示 -->
+        {% if review.user.profile_image %}
+          <img src="{% if review.user.profile_image %}{{ review.user.profile_image.url }}{% else %}{{ MEDIA_URL }}default-thumbnail.png{% endif %}" alt="{{ review.user.username }}'s Profile Icon" style="width: 50px; height: 50px; border-radius: 50%;">
+          <span>{{ review.user.username }}さん</span>
+        {% endif %}
+        <!-- レビュータイトルとユーザー名の表示 -->
+        <p><strong>{{ review.title }}</strong></p> 
+        <p>評価: {{ review.rating }}</p>
+        {% if review.spoiler %}
+          <!-- ネタバレがある場合、クリックして表示する -->
+          <p class="spoiler">ネタバレあり: <a href="#" onclick="toggleSpoilerVisibility(this);return false;">内容を表示</a></p>
+          <div class="spoiler-content" style="display:none;">{{ review.comment }}</div>
+        {% else %}
+          <!-- ネタバレがない場合、そのままコメントを表示 -->
+          <p>{{ review.comment }}</p>
+        {% endif %}
+
+        <!-- ハッシュタグを表示するコードを追加 -->
+        <p>ハッシュタグ:</p>
+        <ul>
+          {% for hashtag in review.hashtags %}
+            <li>{{ hashtag.hashtag.label }}</li>
+          {% endfor %}
+        </ul>
+
+        <button class="vote-button" data-review="{{ review.id }}" data-vote-type="good">Good: {{ review.good_count }}</button>
+        <button class="vote-button" data-review="{{ review.id }}" data-vote-type="bad">Bad: {{ review.bad_count }}</button>
+      </div>
+    {% empty %}
+      <p>レビューはありません。</p>
+    {% endfor %}
+
+    {% if reviews.count > 0 %}
+      <a href="{% url 'flick_seeker:all_movie_reviews' movie.id %}" class="button all-movie-reviews">全ての映画レビューを表示する</a>
+    {% endif %}
+
+    <!-- お気に入りボタン -->
+    <button type="button" id="favorite-button" data-url="{% url 'flick_seeker:toggle_favorite' movie_id=movie.id %}" data-favorited="{{ is_favorited|yesno:'true,false' }}">
+      {{ is_favorited|yesno:'お気に入り済み,お気に入りに追加' }}
+    </button>      
+    
+    <div class="auth-buttons">
+
+      <!-- 前の画面に戻るボタン -->
+      <a href="{% url 'flick_seeker:movie_list' %}" class="button back-button">映画一覧へ</a>
+
+      <!-- ホーム画面へのリンクボタン -->
+      <a href="{% url 'flick_seeker:dashboard' %}" class="button back-button">ホームへ</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    // Djangoテンプレートからmovie.idを取得する
+    const movieId = "{{ movie.id }}";
+  </script>
+
+  <script>
+    // お気に入りボタンのクリックイベント
+    document.getElementById('favorite-button').addEventListener('click', function() {
+      var button = this; // ボタンのDOM要素を取得
+      var favorited = button.getAttribute('data-favorited') === 'true'; // お気に入り状態を取得
+      var url = button.dataset.url; // URLを `data-url` 属性から取得
+      
+      // CSRFトークンを取得
+      var csrfToken = getCookie('csrftoken');
+
+      // AJAXリクエストを送信
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'movie_id': movieId })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // お気に入りの状態をトグル
+        if (data.is_favorite) {
+          button.classList.add('favorite-added');
+          button.textContent = 'お気に入り済み';
+        } else {
+          button.classList.remove('favorite-added');
+          button.textContent = 'お気に入りに追加';
+        }
+        button.setAttribute('data-favorited', data.is_favorite.toString());
+      })
+      .catch(error => console.error('Error:', error));
+    });
+
+    // ページの読み込みが完了した後に実行されるイベントリスナー
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const favoriteButton = document.getElementById('favorite-button');
+      const isFavorited = favoriteButton.getAttribute('data-favorited') === 'true';
+  
+      // お気に入り状態に応じてクラスを設定する
+      if (isFavorited) {
+        favoriteButton.classList.add('favorite-added');
+        favoriteButton.textContent = 'お気に入り済み';
+      } else {
+        favoriteButton.classList.remove('favorite-added');
+        favoriteButton.textContent = 'お気に入りに追加';
+      }
+    });
+
+    // Good/BadボタンのAjaxリクエスト
+    document.querySelectorAll('.vote-button').forEach(button => {
+        console.log("投票ボタンが設定されました:", button); // 各ボタンのログ
+        button.addEventListener('click', function() {
+            console.log("Vote button clicked", this);
+            // 投票ボタンを無効にする処理
+            disableOppositeButton(this);
+            
+            const reviewId = this.dataset.review;
+            const voteType = this.dataset.voteType;
+            fetch(`/review/${reviewId}/vote/${voteType}/`, {
+                method: 'POST',
+                headers: {'X-CSRFToken': getCookie('csrftoken')},
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("投票のレスポンス:", data); // レスポンスのログ
+                // 投票カウントの更新
+                updateVoteCount(this, data);
+                // 逆のボタンを再度有効にする処理   
+                enableOppositeButton(this);
+            });
+        });
+    });
+
+    // 逆のボタンを無効にする関数
+    function disableOppositeButton(clickedButton) {
+        let oppositeVoteType = clickedButton.dataset.voteType === 'good' ? 'bad' : 'good';
+        let oppositeButton = clickedButton.parentElement.querySelector(`[data-vote-type=${oppositeVoteType}]`);
+        if (oppositeButton) {
+            oppositeButton.disabled = true;
+        }
+    }
+
+    // 逆のボタンを有効にする関数
+    function enableOppositeButton(clickedButton) {
+        let oppositeVoteType = clickedButton.dataset.voteType === 'good' ? 'bad' : 'good';
+        let oppositeButton = clickedButton.parentElement.querySelector(`[data-vote-type=${oppositeVoteType}]`);
+        if (oppositeButton) {
+            oppositeButton.disabled = false;
+        }
+    }
+
+    // ボタンのテキストを更新する関数
+    function updateVoteCount(button, data) {
+        // レスポンスから取得したgood_countとbad_countを使用してカウントを更新
+        if ('good_count' in data && 'bad_count' in data) {
+            // 対応するボタンを見つける
+            let goodButton = button.parentElement.querySelector('[data-vote-type="good"]');
+            let badButton = button.parentElement.querySelector('[data-vote-type="bad"]');
+            // ボタンのテキストを新しいカウントで更新
+            goodButton.textContent = `Good: ${data.good_count}`;
+            badButton.textContent = `Bad: ${data.bad_count}`;
+        } else {
+            // 応答データに必要なプロパティがない場合はエラーをログに記録
+            console.error('Good count or Bad count is missing from the response', data);
+        }
+    }
+
+    // CSRFトークン取得のためのヘルパー関数
+    function getCookie(name) {
+        console.log("CSRFトークンを取得します:", name); // トークン取得のログ
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        console.log("取得したCSRFトークン:", cookieValue); // 取得したトークンのログ
+        return cookieValue;
+    }
+
+    function toggleSpoilerVisibility(link) {
+      var spoilerContent = link.parentNode.nextElementSibling;
+      if (spoilerContent.style.display === 'none') {
+        spoilerContent.style.display = 'block';
+        link.textContent = '内容を隠す';
+      } else {
+        spoilerContent.style.display = 'none';
+        link.textContent = '内容を表示';
+      }
+    }
+
+  </script>
+
+
+  
+{% endblock %}

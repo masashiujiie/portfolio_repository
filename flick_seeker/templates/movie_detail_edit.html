@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="movie-detail-edit-page-container">
+    <div class="movie-detail-edit-form-container">
+      <h1>{{ movie.title }}の編集</h1>
+      <form method="post" action="{% url 'flick_seeker:movie_detail_edit' movie.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>{{ form.title.label_tag }}{{ form.title }}</p>
+        <p>{{ form.plot.label_tag }}{{ form.plot }}</p>
+        <p>{{ form.director.label_tag }}{{ form.director }}</p>
+        <p>{{ form.cast.label_tag }}{{ form.cast }}</p>
+        <p>{{ form.release_year.label_tag }}{{ form.release_year }}</p>
+
+        <div class="movie-detail-edit-form-field">
+          <label for="{{ form.thumbnail.id_for_label }}">{{ form.thumbnail.label }}</label>
+          {% if form.thumbnail.value %}
+            <div class="currently">
+              <label>現在のファイル：</label> 
+              <a href="{{ form.thumbnail.value.url }}">{{ form.thumbnail.value }}</a>
+            </div>
+            <div class="change">
+              <label for="{{ form.thumbnail.id_for_label }}">変更：</label>
+              <input type="file" name="{{ form.thumbnail.name }}" id="{{ form.thumbnail.id_for_label }}" />
+            </div>
+            <div class="clear">
+              <label for="{{ form.thumbnail.auto_id }}_clear">
+                <input type="checkbox" name="{{ form.thumbnail.html_name }}-clear" id="{{ form.thumbnail.auto_id }}_clear" />
+                クリア
+              </label>
+            </div>
+          {% else %}
+            <input type="file" name="{{ form.thumbnail.name }}" id="{{ form.thumbnail.id_for_label }}" />
+          {% endif %}
+        </div>
+
+        <div class="movie-detail-edit-auth-buttons">
+          <button type="submit" class="btn btn-primary">保存</button>
+          <!-- 戻るボタンの追加 -->
+          <a href="{% url 'flick_seeker:movie_detail' movie.id %}" class="btn btn-secondary">戻る</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

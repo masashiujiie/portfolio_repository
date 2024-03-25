@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Screen Speak{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- その他共通のCSSやJavaScriptのリンクを追加 -->
+</head>
+<body>
+    <header>
+        <!-- ロゴとナビゲーションリンク -->
+        <div class="logo">
+            {% if user.is_authenticated %}
+                <a href="{% url 'flick_seeker:dashboard' %}">Screen Speak</a>
+            {% else %}
+                <a href="{% url 'flick_seeker:top' %}">Screen Speak</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- ここでナビゲーションリンクを body 直下に移動し、右上に配置するスタイルを適用 -->
+    <nav class="top-right-nav">
+        <ul>
+            <li><a href="{% url 'flick_seeker:mypage' %}">マイページ</a></li>
+            <li><a href="{% url 'flick_seeker:logout' %}">ログアウト</a></li>
+        </ul>
+    </nav>
+    
+
+    {% if messages %}
+        <div class="messages">
+            <ul>
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% block content %}
+    <!-- この部分は子テンプレートによって上書きされます -->
+    {% endblock %}
+
+    <footer>
+        <p>© 2024 Screen Speak. All rights reserved.</p>
+        <!-- 連絡先や追加リンク -->
+    </footer>
+
+    {% block extra_js %}
+    <!-- 子テンプレートで追加されるJavaScriptコードがここに挿入されます -->
+    {% endblock %}
+</body>
+</html>

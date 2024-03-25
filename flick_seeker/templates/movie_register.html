@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="movie-register-title">映画登録</h1>
+  
+  <div class="movie-register-form-container">
+    <form method="post" enctype="multipart/form-data" class="movie-register-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="button movie-register-submit-button">登録</button>
+    </form>
+
+  <!-- 前の画面に戻るボタン -->
+  <a href="{% url 'flick_seeker:dashboard' %}" class="button movie-register-back-button">戻る</a>
+
+{% endblock %}

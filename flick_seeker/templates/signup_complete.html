@@ -1,0 +1,21 @@
+{% extends 'base.html' %} <!-- base.htmlを継承する -->
+
+{% block title %}Signup Complete{% endblock %} <!-- ページタイトルを上書き -->
+
+{% block content %}
+    <h1>新規登録が完了しました</h1>
+
+    <!-- Djangoメッセージフレームワークを通じて表示されるメッセージ -->
+    <!-- {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          {% if forloop.first %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %} -->
+
+    <!-- ログイン画面への遷移ボタン -->
+    <a href="{% url 'flick_seeker:login' %}" class="button back-button">ログイン画面へ</a>
+{% endblock %}

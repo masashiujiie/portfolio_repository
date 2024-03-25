@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class="dashboard-title">HOME</h1>
+
+  <!-- 映画一覧 -->
+  <div class="dashboard-movie-list-container">
+    <div class="dashboard-movie-list-title">
+      <h2>映画一覧</h2>
+    </div>
+
+      <!-- 最初の3件の映画のみを表示します。 -->
+      {% for movie in movies %}
+        {% if forloop.counter <= 3 %}
+          <div class="dashboard-movie-thumbnail">
+            <a href="{% url 'flick_seeker:movie_detail' movie.id %}">
+              <!-- サムネイル画像が存在する場合のみ表示します。 -->
+              {% if movie.thumbnail %}
+                <img src="{{ movie.thumbnail.url }}" alt="{{ movie.title }} Thumbnail">
+              {% else %}
+                <!-- サムネイルがない場合は、代わりのテキストまたは画像を表示します。 -->
+                <img src="/media/movie_thumbnails/default-thumbnail.png" alt="デフォルトのサムネイル">
+              {% endif %}
+              <h4>{{ movie.title }}</h4>
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    <!-- 「全ての映画一覧はこちら」へのリンク -->
+    <div class="dashboard-all-movies-link">
+      <a href="{% url 'flick_seeker:movie_list' %}" class="button">全ての映画一覧はこちら</a>
+    </div>
+  </div>
+
+  <!-- 検索バーと検索機能 -->
+  <div class="dashboard-search-container">
+    <h2>検　索</h2>
+    <form method="GET" action="{% url 'flick_seeker:search_results' %}" class="dashboard-search-form">
+      <!-- キーワード検索バー -->
+      <input type="text" name="query" placeholder="映画、監督、俳優等で検索" class="dashboard-search-bar form-input">
+    
+      <!-- ジャンルフィルター -->
+      <p>ジャンル (ctrlまたはcmdを押しながら複数選択できます)</p>
+      <select name="genre" multiple class="dashboard-form-select">
+        {% for genre in genres %}
+          <option value="{{ genre.label }}">{{ genre.label }}</option>
+        {% endfor %}
+      </select>
+    
+      <!-- シチュエーションフィルター -->
+      <p>シチュエーション (ctrlまたはcmdを押しながら複数選択できます)</p>
+      <select name="situation" multiple class="dashboard-form-select">
+        {% for situation in situations %}
+          <option value="{{ situation.label }}">{{ situation.label }}</option>
+        {% endfor %}
+      </select>
+    
+      <!-- 評価フィルター -->
+      <p>評価点数で検索できます（0.5単位で選択可能）</p>
+      <input type="number" name="rating_from" placeholder="評価" min="0.5" max="5" step="0.5" class="dashboard-form-number">
+    
+      <!-- 検索ボタン -->
+      <div class="dashboard-form-buttons">
+        <button type="submit" class="button dashboard-button-search">検　索</button> 
+    
+        <!-- クリアボタン -->
+        <button type="reset" class="button dashboard-button-clear">クリア</button>
+      </div>
+    </form>
+
+    <h2>映画の登録</h2>
+    <!-- 映画を登録するボタン -->
+    <a href="{% url 'flick_seeker:movie_register' %}" class="button dashboard-button-movie-register">映画を登録する</a>  
+  </div>
+
+{% endblock %}

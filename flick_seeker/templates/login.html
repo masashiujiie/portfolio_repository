@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+  <div class="login-form-container">
+    <h1>Screen Speakにログイン</h1>
+    <form method="post" action="{% url 'flick_seeker:login' %}" class="login-form"> <!-- login-formクラスを追加 -->
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" class="button login-button">Login</button> <!-- login-buttonクラスを追加 -->
+    </form>
+  </div>
+
+    <!-- 戻るボタンを追加 -->
+    <a href="{% url 'flick_seeker:top' %}" class="button back-button">戻る</a>
+  
+{% endblock %}

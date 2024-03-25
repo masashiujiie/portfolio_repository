@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mypage-content"> 
+  <h1>マイページ</h1>
+
+  <!-- アイコンの表示（モデルによって異なる） -->
+  {% if user.profile_image %}
+    <img src="{{ user.profile_image.url }}" alt="{{ user.username }}'s Profile Icon" style="width: 64px; height: 64px; border-radius: 50%;">
+  {% else %}
+    <p>プロフィールアイコンはまだ登録されていません。</p>
+  {% endif %}
+
+  <p>ユーザー名: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p> 
+
+  <!-- プロフィールの表示。内容がない場合は「未登録」と表示 -->
+  <p>プロフィール: {{ user.bio|default:"未登録" }}</p>
+
+  <!-- マイレビュー一覧へのリンク -->
+  <a href="{% url 'flick_seeker:my_reviews' %}">マイレビュー一覧</a>
+
+  <!-- お気に入り一覧へのリンク -->
+  <a href="{% url 'flick_seeker:my_favorites' %}">お気に入り一覧</a>
+
+  <!-- プロフィール編集ページへのリンク -->
+  <a href="{% url 'flick_seeker:edit_profile' %}">プロフィール編集</a>
+
+  <!-- パスワード変更ページへのリンク -->
+  <a href="{% url 'flick_seeker:password_change' %}">パスワード変更</a>
+
+  <!-- アカウント削除ページへのリンク -->
+  <a href="{% url 'flick_seeker:delete_user' %}" onclick="return confirm('アカウントを削除してもよろしいですか？');">アカウント削除</a>
+
+  <!-- ホーム画面へのリンクボタン -->
+  <a href="{% url 'flick_seeker:dashboard' %}" class="button back-button">ホームへ</a>
+</div>
+{% endblock %}
